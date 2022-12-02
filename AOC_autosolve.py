@@ -50,7 +50,7 @@ class prompt():
             return f.read()
 
     def refine_prompt(self):
-        refined_text = self.raw_text() + f'''Make sure you read the prompt carefully and understand it fully. The program should output a single number as a solution. Write a python program with comments that solves the problem:\n{self.code_starter}'''
+        refined_text = self.raw_text() + f'''Make sure you read the prompt carefully and understand it fully. The program should output a single number as a solution. Write a python 3.10 program with comments that solves the problem:\n{self.code_starter}'''
         self.gpt_prompt(text=refined_text)
 
     def send_to_gpt(self):
