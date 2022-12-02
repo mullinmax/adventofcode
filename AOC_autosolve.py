@@ -79,6 +79,11 @@ class prompt():
         os.system(f'python gpt_program.py > output.txt')
         os.chdir(root_wd)        
 
+    def run_debugged_solution(self):
+        root_wd = os.getcwd()
+        os.chdir(self.dir)
+        os.system(f'python debugged_program.py > output.txt')
+        os.chdir(root_wd)
 
 
 def select_year():
@@ -121,6 +126,7 @@ def main():
         "refine prompt":lambda:p.refine_prompt(),
         "send to GPT":lambda:p.send_to_gpt(),
         "run solution":lambda:p.run_solution(),
+        "run debugged solution":lambda:p.run_debugged_solution(),
         "view output":lambda:print(p.output()),
         "different prompt":lambda:change_prompt_date(p),
         "exit":lambda:exit(),
