@@ -6,34 +6,6 @@ import openai
 from datetime import datetime
 from simple_term_menu import TerminalMenu
 from pathlib import Path
-# # get prompt for the day
-
-# todays_prompt_raw = get_prompt.today()
-# with open('raw_prompt', 'w') as f:
-#     f.write(todays_prompt_raw)
-
-
-
-# code_start=f"with open('{day_number}/data.txt') as f:"
-# prompt = f'''{''.join(str(desc.contents))}
-# Make sure you read the prompt carefully and understand it fully. The program should output a single number as a solution. Write a python program with lots of comments to solve the problem:
-
-# {code_start}'''
-
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-# response = openai.Completion.create(
-#   model="text-davinci-003",
-#   prompt= prompt,
-#   temperature=.9,
-#   max_tokens=1000,
-#   top_p=0.8,
-#   frequency_penalty=0.1,
-#   presence_penalty=0.0,
-#   best_of=5
-# )
-
-# with open(f'{day_number}/output.py', 'w') as f:
-#     f.write(code_start + response['choices'][0]['text'])
 
 class prompt():
     code_starter = '''with open('data.txt') as f:'''
