@@ -85,9 +85,10 @@ class prompt():
         os.system(f'python debugged_program.py > output.txt')
         os.chdir(root_wd)
 
-
-def select_year():
+    
+def change_prompt_date(p):
     now = datetime.now()
+    # get year we want to run
     if now.month == 12:
         options = [str(i) for i in range(2015, now.year+1)]
     else:        
@@ -95,10 +96,10 @@ def select_year():
     options.reverse()
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
-    return int(options[menu_entry_index])
+    year = int(options[menu_entry_index])
+    print('year:',year)
 
-def select_day(year):
-    now = datetime.now()
+    # get day / prompt number to run
     if now.year == year and now.month == 12:
             options = [str(i) for i in range(1, now.day+1)]
     else:        
@@ -106,14 +107,7 @@ def select_day(year):
     options.reverse()
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
-    return int(options[menu_entry_index])
-    
-def change_prompt_date(p):
-    # get year we want to run
-    year = select_year()
-    print('year:',year)
-    # get day / prompt number to run
-    day = select_day(year)
+    day = int(options[menu_entry_index])
     print('day:',day)
 
     p.change_date(datetime(year=year,day=day,month=12))
