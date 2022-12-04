@@ -8,11 +8,13 @@ from simple_term_menu import TerminalMenu
 from pathlib import Path
 
 class prompt():
-    code_starter = '''with open('data.txt') as f:'''
-
+    prompt_distilation_str = '\nWrite a simplified or distilled version of the prompt that contains all the information relevant to writing a program to solve the problem in a markdown format. Then write an outline for how a program should efficiently solve the problem.'
+    code_starter_str = "with open('data.txt') as f:"
+    program_prompt_str = f'''\nWrite a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:\n{code_starter_str}'''
     def __init__(self, date):
         self.set_date(date)
         self.aoc_cookie = os.environ.get('AOC_COOKIE')
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def set_date(self, date):
         self.date = date
@@ -22,7 +24,7 @@ class prompt():
         self.dir = os.path.join(self.year,self.day)
         self.raw_text_path = os.path.join(self.dir, 'raw_prompt.html')
         self.data_path = os.path.join(self.dir, 'data.txt')
-        self.gpt_prompt_path = os.path.join(self.dir, 'gpt_prompt.txt')
+        self.refined_prompt_path = os.path.join(self.dir, 'refined_prompt.txt')
         self.gpt_program_path = os.path.join(self.dir, 'gpt_program.py')
         self.output_path = os.path.join(self.dir, 'output.txt')
 
@@ -54,8 +56,8 @@ class prompt():
     def data(self, text:str=None)-> str:
         return self.__generic_text__(path=self.data_path, text=text)
 
-    def gpt_prompt(self, text:str=None)-> str:
-        return self.__generic_text__(path=self.gpt_prompt_path, text=text)
+    def refined_prompt(self, text:str=None)-> str:
+        return self.__generic_text__(path=self.refined_prompt_path, text=text)
 
     def gpt_program(self, text:str=None)-> str:
         return self.__generic_text__(path=self.gpt_program_path, text=text)
@@ -72,19 +74,21 @@ class prompt():
             return f.read()
 
     def refine_prompt(self):
-        refined_text = self.raw_text() + f'''Make sure you read the prompt carefully and understand it fully. The program should output a single number as a solution. Write a python 3.10 program with comments that solves the problem:\n{self.code_starter}'''
-        self.gpt_prompt(text=refined_text)
+        refined_text = self.__generic_gpt__(self.raw_text() + self.prompt_distilation_str) + self.program_prompt_str
+        # refined_text = self.raw_text() + self.program_prompt_str
+        self.refined_prompt(text=refined_text)
 
     def send_to_gpt(self):
-        openai.api_key = os.getenv("OPENAI_API_KEY")
-        
-        refined_prompt_text = self.gpt_prompt()
-        if len(refined_prompt_text) < 10:
-            raise Exception('prompt is way too short')
+        program_text = self.code_starter_str + self.__generic_gpt__(self.refined_prompt())
+        self.gpt_program(text=program_text)
+    
+    def __generic_gpt__(self, prompt):
+        if len(prompt) < 10:
+            raise Exception('prompt seems suspiciously short')
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= refined_prompt_text,
+            prompt= prompt,
             temperature=1,
             max_tokens=2000,
             top_p=0.8,
@@ -92,9 +96,8 @@ class prompt():
             presence_penalty=0.0,
             best_of=5
         )
-        program_text = self.code_starter + response['choices'][0]['text']
-        self.gpt_program(text=program_text)
-    
+        return response['choices'][0]['text']
+
     def run_solution(self):
         root_wd = os.getcwd()
         os.chdir(self.dir)
