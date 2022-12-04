@@ -11,26 +11,48 @@ class prompt():
     code_starter = '''with open('data.txt') as f:'''
 
     def __init__(self, date):
-        self.change_date(date)
+        self.set_date(date)
+        self.aoc_cookie = os.environ.get('AOC_COOKIE')
 
-    def change_date(self, date):
+    def set_date(self, date):
         self.date = date
-        self.dir = os.path.join(date.strftime("%Y"),date.strftime("%-d"))
+        self.year = date.strftime("%Y")
+        self.day = date.strftime("%-d")
+        self.base_url = f'https://adventofcode.com/{self.year}/day/{self.day}'
+        self.dir = os.path.join(self.year,self.day)
         self.raw_text_path = os.path.join(self.dir, 'raw_prompt.html')
+        self.data_path = os.path.join(self.dir, 'data.txt')
         self.gpt_prompt_path = os.path.join(self.dir, 'gpt_prompt.txt')
         self.gpt_program_path = os.path.join(self.dir, 'gpt_program.py')
         self.output_path = os.path.join(self.dir, 'output.txt')
 
     def scrape_prompt(self):
-        url = f'https://adventofcode.com/{self.date.strftime("%Y")}/day/{self.date.strftime("%-d")}'
-        page = requests.get(url)
+        page = requests.get(self.base_url)
         soup = BeautifulSoup(page.content, 'html.parser')
         desc = soup.find('article', class_='day-desc')
         text = ''.join([str(e) for e in desc.contents])
         self.raw_text(text)
 
+    def scrape_data(self):
+        if self.aoc_cookie is None:
+            print('AOC_COOKIE environment variable not set, see readme instructions')
+            return
+
+        headers = {
+            'Cookie': self.aoc_cookie
+        }
+        response = requests.get(self.base_url + '/input', headers=headers)
+
+        if response.status_code == 200:
+            self.data(response.text)
+        else:
+            print(f'Error: Failed to fetch input error code: {response.status_code}')
+
     def raw_text(self, text:str=None)-> str:
         return self.__generic_text__(path=self.raw_text_path, text=text)
+
+    def data(self, text:str=None)-> str:
+        return self.__generic_text__(path=self.data_path, text=text)
 
     def gpt_prompt(self, text:str=None)-> str:
         return self.__generic_text__(path=self.gpt_prompt_path, text=text)
@@ -64,7 +86,7 @@ class prompt():
             model="text-davinci-003",
             prompt= refined_prompt_text,
             temperature=1,
-            max_tokens=1000,
+            max_tokens=2000,
             top_p=0.8,
             frequency_penalty=0.1,
             presence_penalty=0.0,
@@ -110,19 +132,20 @@ def change_prompt_date(p):
     day = int(options[menu_entry_index])
     print('day:',day)
 
-    p.change_date(datetime(year=year,day=day,month=12))
+    p.set_date(datetime(year=year,day=day,month=12))
 
 def main():
     p = prompt(datetime(year=2015,day=1,month=12))
     change_prompt_date(p)
     programs = {
         "retreive prompt":lambda:p.scrape_prompt(),
+        "retreive data":lambda:p.scrape_data(),
         "refine prompt":lambda:p.refine_prompt(),
         "send to GPT":lambda:p.send_to_gpt(),
         "run solution":lambda:p.run_solution(),
         "run debugged solution":lambda:p.run_debugged_solution(),
         "view output":lambda:print(p.output()),
-        "different prompt":lambda:change_prompt_date(p),
+        "go to different day":lambda:change_prompt_date(p),
         "exit":lambda:exit(),
     }
     all_keys = list(programs.keys())
