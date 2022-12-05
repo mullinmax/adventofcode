@@ -2,13 +2,10 @@
 
 
 todo list:
- - distil prompts with GPT-3
  - detect which parts have already been solved if any
- - get part two after part one is solved
- - refine part two prompts with previous part's code inline
  - when code throws runtime errors send back to gpt-3 with error text and msg to fix bug
- - submit solutions automatically
  - when submissions are incorrect include higher/lower msg in prompt
+ - submit solutions automatically
  - select multiple years and multiple days to batch run
  - Experiment with using lower power GPT-3 models like ada for cost savings
  - add a liscense
