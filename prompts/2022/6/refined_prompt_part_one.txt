@@ -1,0 +1,24 @@
+
+
+## Summary
+
+We need to write a program to detect the first position in a data stream buffer where the four most recently received characters are all different. This position is known as the start-of-packet marker.
+
+## Examples
+- `mjqjpqmgbljsphdztnvjfqwrcgsmlb`: first marker after character `5`
+- `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character `6`
+- `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character `10`
+- `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character `11`
+
+## Outline
+1. Accept the data stream buffer as an input.
+2. Iterate through the data stream buffer one character at a time.
+3. For each character, store the last four characters in a separate array or list.
+4. Check if all the characters in the array are different.
+5. If all characters are different, return the position of the first character in the array. 
+6. If all characters are not different, continue to the next character in the data stream buffer. 
+7. Repeat steps 2-6 until the start-of-packet marker is found.
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

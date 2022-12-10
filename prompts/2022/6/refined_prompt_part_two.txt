@@ -1,0 +1,23 @@
+.
+
+## Problem Summary
+
+The Elves have given us a device with a communication system that needs to detect the start of a packet (four distinct characters) and a start of a message (fourteen distinct characters). We need to write a program that will identify the first position of the start-of-message marker in the datastream buffer.
+
+### Examples
+- `mjqjpqmgbljsphdztnvjfqwrcgsmlb`: first marker after character `19`
+- `bvwbjplbgvbhsrlpgdmjqwftvncz`: first marker after character `23`
+- `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character `23`
+- `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character `29`
+- `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character `26`
+
+### Outline
+1. Create a function that takes in a string as a parameter
+2. Create a for loop that loops through each character in the string 
+3. Create an if statement that checks if the last 14 characters of the string contain 14 distinct characters 
+4. If the statement is true, return the index of the 14th character 
+5. Else, continue looping through the string
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

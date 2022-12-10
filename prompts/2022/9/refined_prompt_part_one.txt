@@ -1,0 +1,19 @@
+
+
+**Simplified prompt:**
+
+Consider a rope with a knot at each end; these knots mark the head and the tail of the rope. Given a hypothetical series of motions (your puzzle input) for the head, determine how the tail will move. The head and tail must always be touching, either diagonally adjacent or even overlapping. If the head is two steps directly up, down, left, or right from the tail, the tail must move one step in that direction. Otherwise, the tail always moves one step diagonally to keep up. Count up all of the positions the tail visited at least once. 
+
+**Outline:**
+
+1. Create variables for head and tail positions, starting at same position 
+2. Read input of motion commands
+3. Parse motion commands 
+4. Move head according to motion commands 
+5. Move tail to keep head and tail touching 
+6. Track visited positions in a data structure 
+7. Print out total number of visited positions
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

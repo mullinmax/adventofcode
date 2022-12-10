@@ -1,0 +1,25 @@
+
+
+## Prompt
+
+Given a filesystem with directories and files, find all the directories with a total size of at most 100000 and calculate the sum of their total sizes.
+
+## Example
+
+The outermost directory is called `/`. There are four directories: `/`, `a`, `d`, and `e`. 
+
+- The total size of directory `e` is **584** because it contains a single file `i` of size 584 and no other directories.
+- The directory `a` has total size **94853** because it contains files `f` (size 29116), `g` (size 2557), and `h.lst` (size 62596), plus file `i` indirectly (`a` contains `e` which contains `i`).
+- Directory `d` has total size **24933642**.
+- As the outermost directory, `/` contains every file. Its total size is **48381165**, the sum of the size of every file.
+
+## Outline
+
+1. Create a data structure to store the directory structure, including the directory names, file names, and file sizes. 
+2. Traverse the data structure, starting at the root directory, and add up the sizes of the files and subdirectories within each directory. 
+3. Compare the total size of each directory to the maximum size (100000). If it is less than or equal to the maximum size, add it to a list of valid directories. 
+4. Sum up the sizes of all the valid directories to get the final answer.
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

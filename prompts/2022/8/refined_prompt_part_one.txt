@@ -1,0 +1,14 @@
+
+
+## Simplified Prompt
+
+Given a grid of numbers that each represent the height of a tree, determine the total number of trees that are visible from outside the grid.
+
+## Outline
+1. Create an n by n grid from the given input.
+2. Iterate through each row and column of the grid and count the number of trees that are taller than all trees between it and the edge in the same row or column. those trees are visable
+3. Return the total count of visible trees.
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:
