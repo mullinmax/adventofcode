@@ -1,0 +1,113 @@
+
+
+Simplified prompt:
+
+Write a program to calculate the signal strength of the X register during the 20th, 60th, 100th, 140th, 180th, and 220th cycles. 
+
+Example: 
+In the following program, the signal strength during the 20th cycle is 420 (20 x 21), during the 60th cycle is 1140 (60 x 19), during the 100th cycle is 1800 (100 x 18), during the 140th cycle is 2940 (140 x 21), during the 180th cycle is 2880 (180 x 16), and during the 220th cycle is 3960 (220 x 18).
+
+addx 15
+addx -11
+addx 6
+addx -3
+addx 5
+addx -1
+addx -8
+addx 13
+addx 4
+noop
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx -35
+addx 1
+addx 24
+addx -19
+addx 1
+addx 16
+addx -11
+noop
+noop
+addx 21
+addx -15
+noop
+noop
+addx -3
+addx 9
+addx 1
+addx -3
+addx 8
+addx 1
+addx 5
+noop
+noop
+noop
+noop
+noop
+addx -36
+noop
+addx 1
+addx 7
+noop
+noop
+noop
+addx 2
+addx 6
+noop
+noop
+noop
+noop
+noop
+addx 1
+noop
+noop
+addx 7
+addx 1
+noop
+addx -13
+addx 13
+addx 7
+noop
+addx 1
+addx -33
+noop
+noop
+noop
+addx 2  etc. 
+
+  Outline: 
+
+  1. Read in the program as an array of strings. 
+
+  2. Create an empty array to store each instruction and its value. 
+
+  3. Iterate through the array of strings and split each instruction into its command and value (e.g. 'add 15' into ['add', 15]). 
+
+  4. Push each command and value into the empty array. 
+
+  5. Create a variable to keep track of the cycles and set it to 0. 
+
+  6. Create a variable to store the value of X register and set it to 1. 
+
+  7. Iterate through the array of commands and values and: 
+
+      a. If command is 'noop', increment the cycles variable by 1. 
+
+      b. If command is 'add', increment the cycles variable by 2 and add the value to X register. 
+
+  8. Check if the cycles variable is equal to 20, 60, 100, 140, 180 or 220. 
+
+  9. If so, store the signal strength (cycles * X register) in a separate array. 
+
+ 10. Calculate the sum of the signal strengths stored in the separate array and print it out.
+Write a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

@@ -7,10 +7,10 @@ from datetime import datetime
 from pathlib import Path
 
 class prompt():
-    part_one_distilation_str = '\nWrite a simplified or distilled version of the prompt that contains all the relevant info to write a program to solve the problem in a markdown format. Preserve any examples in the prompt. Then write an outline of how a program should efficiently solve the problem.'
+    part_one_distilation_str = '\nWrite a distilled version of the prompt. Preserve any examples in the prompt. Then write a detailed outline of how a program should efficiently solve the problem. you may include pseudo code where helpful'
     part_two_distilation_str = f'{part_one_distilation_str}. The program should only solve part 2, use the information from the already competed part 1 for context only'
     code_starter_str = "\nimport sys\nwith open(sys.argv[1]) as f:"
-    program_prompt_str = f'''\nWrite a Python 3.10 program that solves the above problem, your code should output a single integer and nothing else:\n{code_starter_str}'''
+    program_prompt_str = f'''\nWrite a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:\n{code_starter_str}'''
     def __init__(self, date):
         self.set_date(date)
         self.aoc_cookie = os.environ.get('AOC_COOKIE')
