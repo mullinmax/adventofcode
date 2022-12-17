@@ -1,0 +1,15 @@
+
+
+Prompt Summary:
+
+Given a list of pairs of packets, determine which pairs are in the right order according to a set of rules.
+
+Outline: 
+1. Parse the input and store the data in a data structure. 
+2. Iterate through each pair of packets and compare them using the given rules. 
+3. For each pair, if the left side is smaller, the inputs are in the right order and add its index to a sum. 
+4. Output the sum of all indices of pairs in the right order.
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

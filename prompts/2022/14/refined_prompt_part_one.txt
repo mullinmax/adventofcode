@@ -1,0 +1,18 @@
+
+
+Prompt Summary: 
+Given a two-dimensional vertical slice of a cave (represented by '#' for rock, '.' for air, and '+' for the source of sand) calculate the total amount of sand that will come to rest before it flows into the abyss below.
+
+Outline: 
+1. Read in the input (a two-dimensional vertical slice of a cave) and store it in an appropriate data structure.
+2. Create a list of coordinates for the rock, air, and source of sand in the cave. 
+3. Set the current position of the sand to the source of sand and set a counter to 0.
+4. While the current position of the sand is not at the bottom of the cave: 
+    a. If the tile below is air, move the sand one step down and increment the counter. 
+    b. If the tile below is rock, try to move diagonally one step down and to the left. If that tile is air, move the sand one step and increment the counter.
+    c. If the tile below and to the left is rock, try to move diagonally one step down and to the right. If that tile is air, move the sand one step and increment the counter.
+5. Print the total amount of sand that comes to rest before it flows into the abyss below (the counter).
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

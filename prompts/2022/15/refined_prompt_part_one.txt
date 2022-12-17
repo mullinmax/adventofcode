@@ -1,0 +1,26 @@
+.
+
+Distilled Prompt:
+Given a list of sensors and their closest beacons, determine how many positions in a row cannot contain a beacon. 
+
+Example: 
+Sensor at x=2, y=18: closest beacon is at x=-2, y=15
+Sensor at x=9, y=16: closest beacon is at x=10, y=16
+
+In the row where y=10, there are 26 positions where a beacon cannot be present. 
+
+Problem:
+In the row where y=2000000, how many positions cannot contain a beacon? 
+
+Outline: 
+1. Parse input and create a list of sensor positions and their closest beacons 
+2. Create a set of coordinates in the given row (y=2000000) 
+3. Iterate over the list of sensor positions and their closest beacons 
+4. For each sensor, determine if the beacon is in the given row (y=2000000) 
+5. If the beacon is not in the given row, add all positions between the sensor and beacon to the set of coordinates 
+6. Count the number of coordinates in the set 
+7. Output the count of coordinates
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

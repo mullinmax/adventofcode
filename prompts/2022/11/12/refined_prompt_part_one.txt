@@ -1,0 +1,19 @@
+.
+
+Distilled Prompt:
+Given a grid of lowercase letters (a-z) representing elevations, find the shortest path from the start position (S) to the end position (E).
+
+Outline:
+1. Read in the heightmap of the grid from the puzzle input.
+2. Create an empty path array and a visited array to keep track of visited squares.
+3. Set the current position to S.
+4. Calculate all adjacent squares to the current position and store them in an array.
+5. Calculate the elevation of each adjacent square and store it in a separate array.
+6. Find the lowest elevation of the adjacent squares and move to that square.
+7. Add the new position to the path array and the visited array.
+8. If the new position is E, stop and return the path array.
+9. Else, set the new position as the current position and go back to step 4.
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

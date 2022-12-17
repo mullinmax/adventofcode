@@ -1,0 +1,16 @@
+.
+
+Distilled Prompt:
+Find the maximum pressure released from a set of valves in 30 minutes.
+
+Outline:
+1. Create a graph of all valves and their connections 
+2. Find the source valve (AA)
+3. Use a depth-first search algorithm to explore the graph, keeping track of the current pressure and the time it will take to reach each valve 
+4. For each valve, if the pressure is higher than the current pressure and the time to reach it is less than 30 minutes, add the valve to the list of visited valves 
+5. Repeat until all valves have been visited or until 30 minutes have elapsed 
+6. The maximum pressure released is the total pressure of all visited valves
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:
