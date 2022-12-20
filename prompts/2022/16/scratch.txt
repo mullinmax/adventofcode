@@ -1,0 +1,26 @@
+H -> JJ -> BB -> CC
+E -> DD -> HH -> EE
+
+
+== Minute 10 ==
+Valves BB, CC, DD, HH, and JJ are open, releasing 78 pressure.
+The elephant moves to valve EE.
+
+== Minute 11 ==
+Valves BB, CC, DD, HH, and JJ are open, releasing 78 pressure.
+The elephant opens valve EE.
+
+(At this point, all valves are open.)
+
+== Minute 12 ==
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+
+...
+
+== Minute 20 ==
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+
+...
+
+== Minute 26 ==
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
