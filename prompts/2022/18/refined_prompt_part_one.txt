@@ -1,0 +1,36 @@
+.
+
+Prompt: 
+Given a 3D grid of x,y,z coordinates, calculate the surface area of the scanned lava droplet by counting the number of sides of each cube that are not immediately connected to another cube.
+
+Example: 
+2,2,2
+1,2,2
+3,2,2
+2,1,2
+2,3,2
+2,2,1
+2,2,3
+2,2,4
+2,2,6
+1,2,5
+3,2,5
+2,1,5
+2,3,5
+Surface area: 64 
+
+Outline: 
+1. Create a function to calculate the surface area of the scanned lava droplet 
+    a. Create a list to store the x,y,z coordinates of each cube 
+    b. Create a variable to store the surface area 
+    c. Iterate through the list of cubes 
+    d. For each cube in the list: 
+        i. Calculate the distance between it and each other cube 
+        ii. If the distance is equal to 1, then add 1 to the surface area variable 
+    e. Return the surface area variable 
+2. Call the function with the list of x,y,z coordinates as an argument 
+3. Print the result
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:
