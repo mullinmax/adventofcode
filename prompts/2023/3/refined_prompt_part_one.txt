@@ -1,0 +1,58 @@
+**Prompt**
+
+Find the sum of all the "part numbers" in an engine schematic. In the schematic, a number is considered a "part number" if it is adjacent to an 'engine symbol' (any character that isn't a period `.` or a digit), operands can be both horizontally, vertically and diagonally adjacent.
+
+Consider the following schematic as an example:
+
+```
+467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..
+```
+
+In this schematic, `114` and `58` are not considered part numbers because they aren't adjacent to any symbol. The other numbers are all part numbers, and their sum is `4361`. 
+
+You're asked to find the sum of all part symbols in a larger engine schematic.
+
+**Outline**
+
+1. Read in a multiline string representation of the engine schematic.
+2. Loop through the schematic line by line and character by character.
+3. For each character, check if it's a digit:
+    - If it is not a digit, mark it as a symbol.
+    - If it is a digit, check if it's adjacent (horizontally, vertically, or diagonally) to any symbols;
+        - If it is, add its integer value to the overall sum of part numbers.
+4. Repeat until there are no more characters in the schematic.
+5. Return the sum of valid part numbers.
+
+Use a two dimensional array to represent the schematic, this way we can easily calculate the adjacent cells by checking the cells at coordinates (i±1, j±1) if they are within the bounds of the array.
+
+**Pseudocode**
+
+``` python
+def calculate_parts(schematic: str) -> int:
+    rows = schematic.split("\n")
+    total = 0
+    for i in range(len(rows)):
+        for j in range(len(rows[i])):
+            if not rows[i][j].isdigit():
+                directions = [(1,0),(-1,0),(0,1),(0,-1),(1,1),(-1,-1),(1,-1),(-1,1)]
+                for direction in directions:
+                    ni, nj = i + direction[0], j + direction[1]
+                    if 0 <= ni < len(rows) and 0 <= nj < len(rows[i]) and rows[ni][nj].isdigit():
+                        total += int(rows[ni][nj])
+    return total
+```
+For each non-digit character, we check its 8 surrounding cells and if they are digits, we add them to the sum and continue to the next character.
+This algorithm gives us the solution in O(n) time, where n is the size of the array.
+Write a Python 3.10 program that solves the above problem, your code should print just the solution and nothing else:
+
+import sys
+with open(sys.argv[1]) as f:

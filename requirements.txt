@@ -1,2 +1,4 @@
 simple-term-menu
 beautifulsoup4
+requests
+openai

@@ -103,17 +103,15 @@ class prompt():
         if len(prompt) < 10:
             raise Exception('prompt seems suspiciously short')
 
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt= prompt,
-            temperature=0.9,
-            max_tokens=2000,
-            top_p=0.8,
-            frequency_penalty=0.1,
-            presence_penalty=0.0,
-            best_of=1
+        completion = openai.chat.completions.create(
+            model="gpt-4", 
+            messages=[
+                {"role": "system", "content": "Write code to solve the presented programming problem following the user's instructions"},
+                {"role": "user", "content": prompt},
+            ]
         )
-        return response['choices'][0]['text']
+
+        return completion.choices[0].message.content
 
     def run_part_one_solution(self):
         os.system(f'python {self.part_one_program_path} {self.data_path} > {self.part_one_output_path}')
